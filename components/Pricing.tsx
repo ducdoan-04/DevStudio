@@ -85,7 +85,12 @@ const InvitationCard: React.FC<{ item: Invitation }> = ({ item }) => (
         className="w-full h-auto object-contain rounded-md"
       />
     </div>
-    <h3 className="mt-4 text-gray-700 font-semibold">{item.title}</h3>
+    <h3
+      className="mt-1 text-gray-700 font-dancing-script text-black"
+      style={{ fontSize: "23px" }}
+    >
+      {item.title}
+    </h3>
   </div>
 );
 
@@ -101,7 +106,7 @@ const Invitations: React.FC = () => {
             kế theo xu hướng hiện đại độc đáo
           </p>
         </div>
-        <div className="mt-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8">
+        <div className="mt-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {invitationData.map((item) => (
             <InvitationCard key={item.id} item={item} />
           ))}

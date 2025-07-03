@@ -28,17 +28,22 @@ const Header: React.FC<{
 }> = ({ setPage, currentPage }) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
-  const onGalleryPage = currentPage === "gallery";
+  const isSubPage =
+    currentPage === "about" ||
+    currentPage === "gallery" ||
+    currentPage === "invitations" ||
+    currentPage === "pricing" ||
+    currentPage === "contact";
 
   useEffect(() => {
     const handleScroll = () => {
-      // On gallery page, the trigger point is lower to account for the top bar
-      const scrollThreshold = onGalleryPage ? 48 : 20;
+      // On sub pages, the trigger point is lower to account for the top bar
+      const scrollThreshold = isSubPage ? 48 : 20;
       setIsScrolled(window.scrollY > scrollThreshold);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [onGalleryPage]);
+  }, [isSubPage]);
 
   const handleNavClick = (e: React.MouseEvent, link: NavLink) => {
     e.preventDefault();
@@ -69,15 +74,13 @@ const Header: React.FC<{
     { name: "ẢNH CƯỚI", type: "page", target: "gallery" },
   ];
   const rightLinks: NavLink[] = [
-    { name: "THIỆP CƯỚI", type: "anchor", target: "#invitations" },
-    { name: "BẢNG GIÁ", type: "anchor", target: "#contact" },
-    { name: "LIÊN HỆ", type: "anchor", target: "#contact" },
+    { name: "THIỆP CƯỚI", type: "page", target: "invitations" },
+    { name: "BẢNG GIÁ", type: "page", target: "pricing" },
+    { name: "LIÊN HỆ", type: "page", target: "contact" },
   ];
 
   const NavItem: React.FC<{ link: NavLink }> = ({ link }) => {
-    const isActive =
-      (link.type === "page" && currentPage === link.target) ||
-      (link.name === "TRANG CHỦ" && currentPage === "home");
+    const isActive = link.type === "page" && currentPage === link.target;
     return (
       <a
         href={link.type === "anchor" ? link.target : "#"}
@@ -94,7 +97,7 @@ const Header: React.FC<{
   return (
     <header
       className={`fixed left-0 w-full z-40 transition-all duration-300 ${
-        onGalleryPage ? "top-12" : "top-0"
+        isSubPage ? "top-12" : "top-0"
       } ${
         isScrolled ? "bg-white/95 shadow-md backdrop-blur-sm" : "bg-white/80"
       }`}

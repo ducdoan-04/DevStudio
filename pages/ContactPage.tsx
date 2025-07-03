@@ -1,16 +1,16 @@
 import React from "react";
 import GalleryHero from "../components/GalleryHero";
-import PhotoGrid from "../components/PhotoGrid";
+import ContactContent from "../components/ContactContent";
 import Contact from "../components/CTA";
 
-const GalleryPage: React.FC = () => {
+const ContactPage: React.FC = () => {
   return (
     <div className="pt-36">
-      <GalleryHero title="DEV Studio" />
-      <PhotoGrid />
+      <GalleryHero title="Liên Hệ" />
+      <ContactContent />
       <Contact />
     </div>
   );
 };
 
-export default GalleryPage;
+export default ContactPage;

@@ -5,7 +5,7 @@ const AboutIntro: React.FC = () => {
     <section className="py-16 sm:py-24 bg-white">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div>
+          <div className="">
             <img
               src="https://studiocenter.vnwordpress.net/wp-content/uploads/2020/08/DSC3641-oo7ibaeyuzogs43nvx2pypw005ir2odvkin3a9g1lc.jpg"
               alt="Wedding venue interior"
@@ -13,8 +13,8 @@ const AboutIntro: React.FC = () => {
             />
           </div>
           <div className="text-gray-600">
-            <h2 className="font-script text-5xl brand-red">Giới thiệu</h2>
-            <h3 className="text-4xl font-bold text-gray-800 mt-1">
+            <h2 className="font-script text-6xl brand-red">Giới thiệu</h2>
+            <h3 className="text-5xl font-bold text-gray-800 mt-1">
               Về chúng tôi
             </h3>
             <p className="mt-6 font-semibold italic">

@@ -67,7 +67,7 @@ const PhotoCard: React.FC<{ item: AlbumImage }> = ({ item }) => (
         className="w-full h-auto object-cover aspect-[3/4] group-hover:scale-105 transition-transform duration-300"
       />
     </div>
-    <h3 className="mt-4 text-gray-700 font-semibold font-serif italic text-lg">
+    <h3 className="mt-1 text-gray-700 font-dancing-script font-serif italic text-xl">
       {item.title}
     </h3>
   </div>
@@ -75,9 +75,9 @@ const PhotoCard: React.FC<{ item: AlbumImage }> = ({ item }) => (
 
 const PhotoGrid: React.FC = () => {
   return (
-    <section className="py-16 sm:py-24 bg-white">
+    <section className="py-16 sm:py-10 bg-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-4">
           {galleryData.map((item) => (
             <PhotoCard key={item.id} item={item} />
           ))}

@@ -1,6 +1,8 @@
 import React from "react";
 
-const GalleryHero: React.FC = () => {
+const GalleryHero: React.FC<{ title?: string }> = ({
+  title = "DEV Studio",
+}) => {
   return (
     <section className="relative h-64 flex items-center justify-center text-center text-white bg-gray-500">
       <div className="absolute inset-0 bg-black opacity-40 z-10"></div>
@@ -14,7 +16,7 @@ const GalleryHero: React.FC = () => {
           className="text-4xl md:text-5xl font-bold uppercase tracking-widest text-white"
           style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.5)" }}
         >
-          DEV Studio
+          {title}
         </h1>
       </div>
     </section>

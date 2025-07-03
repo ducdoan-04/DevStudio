@@ -1,16 +1,16 @@
 import React from "react";
 import GalleryHero from "../components/GalleryHero";
-import PhotoGrid from "../components/PhotoGrid";
+import Invitations from "../components/Pricing";
 import Contact from "../components/CTA";
 
-const GalleryPage: React.FC = () => {
+const InvitationsPage: React.FC = () => {
   return (
     <div className="pt-36">
-      <GalleryHero title="DEV Studio" />
-      <PhotoGrid />
+      <GalleryHero title="Thiệp Cưới" />
+      <Invitations />
       <Contact />
     </div>
   );
 };
 
-export default GalleryPage;
+export default InvitationsPage;

@@ -81,7 +81,7 @@ const AlbumCard: React.FC<{ item: AlbumImage }> = ({ item }) => (
     <img
       src={item.imageUrl}
       alt={item.title}
-      className="w-full h-full object-cover aspect-[3/4] transition-transform duration-500 group-hover:scale-110"
+      className="w-full h-full object-cover aspect-[4/3] transition-transform duration-500 group-hover:scale-110"
     />
     <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
   </div>
@@ -89,16 +89,16 @@ const AlbumCard: React.FC<{ item: AlbumImage }> = ({ item }) => (
 
 const Album: React.FC = () => {
   return (
-    <section id="album" className="py-16 sm:py-24 bg-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="album" className="py-16 sm:py-10 bg-white">
+      <div className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="font-script text-5xl brand-red">Album ảnh cưới</h2>
-          <BirdSeparatorIcon className="mx-auto mt-2" />
           <p className="mt-4 max-w-2xl mx-auto text-gray-500">
             Sự tinh tế thể hiện ở từng chi tiết được chăm chút cẩn thận
           </p>
+          <BirdSeparatorIcon className="mx-auto mt-2" />
         </div>
-        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+        <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
           {albumData.map((item) => (
             <AlbumCard key={item.id} item={item} />
           ))}

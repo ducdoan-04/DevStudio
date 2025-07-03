@@ -32,88 +32,95 @@ const blogData: BlogPost[] = [
     excerpt:
       "Trang điểm cô dâu tone nude nhẹ nhàng sẽ mang đến cho cô dâu vẻ đẹp dịu dàng, trong veo với làn da căng bóng mịn màng tự nhiên như “mặt mộc”. Style makeup này...",
     imageUrl:
-      "https://images.pexels.com/photos/3014856/pexels-photo-3014856.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "https://phindumpwedding.vn/wp-content/uploads/2024/08/z5698385531187_a552fbfb44b2f9d5d4a0c9f8d030ac6e.jpg?auto=compress&cs=tinysrgb&w=800",
     isLarge: true,
     date: "03",
-    month: "Thg",
+    month: "Th9",
   },
   {
     id: 2,
     title: "Nên chụp ảnh cưới ngoại trời hay chụp trong studio ?",
     excerpt: "",
     imageUrl:
-      "https://images.pexels.com/photos/169190/pexels-photo-169190.jpeg?auto=compress&cs=tinysrgb&w=400",
+      "https://file.hstatic.net/200000054678/file/chup-anh-cuoi-studio__10__9c66d22698f74d2b91a3f98d87f863cd.jpg?auto=compress&cs=tinysrgb&w=400",
     isLarge: false,
     date: "03",
-    month: "Thg",
+    month: "Th9",
   },
   {
     id: 3,
     title: "Giờ đón dâu và những điều cần biết để hôn nhân hạnh phúc",
     excerpt: "",
     imageUrl:
-      "https://images.pexels.com/photos/1024989/pexels-photo-1024989.jpeg?auto=compress&cs=tinysrgb&w=400",
+      "https://cdn.vjshop.vn/tin-tuc/tao-dang-chup-anh-cuoi/tao-dang-chup-anh-cuoi-kieu-tro-chuyen-1.jpg?auto=compress&cs=tinysrgb&w=400",
     isLarge: false,
     date: "03",
-    month: "Thg",
+    month: "Th9",
   },
   {
     id: 4,
     title: "Nên gửi thiệp mời cưới trước bao lâu là thích hợp ?",
     excerpt: "",
     imageUrl:
-      "https://images.pexels.com/photos/3206093/pexels-photo-3206093.jpeg?auto=compress&cs=tinysrgb&w=400",
+      "https://i.pinimg.com/originals/41/46/70/4146703d5141d5a56299a2e4145491dd.jpg?auto=compress&cs=tinysrgb&w=400",
     isLarge: false,
     date: "03",
-    month: "Thg",
+    month: "Th9",
   },
   {
     id: 5,
     title: "180+ địa điểm chụp ảnh cưới đẹp nhất ở 3 miền Bắc Trung Nam",
     excerpt: "",
     imageUrl:
-      "https://images.pexels.com/photos/3206093/pexels-photo-3206093.jpeg?auto=compress&cs=tinysrgb&w=400",
+      "https://cdn2.tuoitre.vn/thumb_w/480/471584752817336320/2024/2/28/queen-of-tears-2-17091163424201631739961.jpeg?auto=compress&cs=tinysrgb&w=400",
     isLarge: false,
     date: "14",
-    month: "Thg",
+    month: "Th5",
   },
 ];
 
 const BlogCard: React.FC<{ post: BlogPost }> = ({ post }) => (
-  <div
-    className={`group relative overflow-hidden rounded-lg shadow-md ${
-      post.isLarge ? "lg:col-span-2 lg:row-span-2" : ""
-    }`}
-  >
-    <img
-      src={post.imageUrl}
-      alt={post.title}
-      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-    />
-    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-    <div className="absolute top-4 left-4 bg-white/90 text-center rounded-md w-14 h-14 flex flex-col justify-center items-center">
-      <span className="block font-bold text-2xl brand-red">{post.date}</span>
-      <span className="block text-xs uppercase text-gray-500">
-        {post.month}
-      </span>
+  <div className="group flex flex-col h-full">
+    <div className="relative overflow-hidden mb-4">
+      <a href="#" className="block">
+        <img
+          src={post.imageUrl}
+          alt={post.title}
+          className={`w-full object-cover rounded-sm transition-transform duration-300 group-hover:scale-105 ${
+            post.isLarge ? "aspect-[4/3]" : "aspect-[3/2]"
+          }`}
+        />
+      </a>
+      <div className="absolute top-2.5 left-2.5 bg-white text-center rounded-sm w-12 h-12 flex flex-col justify-center items-center border-2 border-brand-red">
+        <span className="block font-bold text-xl brand-red leading-tight">
+          {post.date}
+        </span>
+        <span className="block text-xs uppercase text-gray-500 leading-tight">
+          {post.month}
+        </span>
+      </div>
     </div>
-    <div className="absolute bottom-0 p-6 text-white">
-      <h3 className={`font-semibold ${post.isLarge ? "text-2xl" : "text-lg"}`}>
-        {post.title}
+    <div className="text-left flex-grow flex flex-col">
+      <h3
+        className={`font-semibold text-gray-800 hover:brand-red transition-colors ${
+          post.isLarge ? "text-xl" : "text-base"
+        }`}
+      >
+        <a href="#">{post.title}</a>
       </h3>
       {post.isLarge && (
-        <p className="mt-2 text-white/80 text-sm hidden md:block">
-          {post.excerpt}
-        </p>
+        <p className="mt-2 text-gray-500 text-sm flex-grow">{post.excerpt}</p>
       )}
     </div>
-    <a href="#" className="absolute inset-0"></a>
   </div>
 );
 
 const Blog: React.FC = () => {
+  const largePost = blogData.find((p) => p.isLarge);
+  const smallPosts = blogData.filter((p) => !p.isLarge);
+
   return (
-    <section id="blog" className="py-16 sm:py-24 bg-gray-50">
+    <section id="blog" className="py-16 sm:py-10 bg-gray-50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="font-script text-5xl brand-red">Cẩm nang cưới</h2>
@@ -124,10 +131,13 @@ const Blog: React.FC = () => {
           </p>
         </div>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-3 lg:grid-rows-2">
-          {blogData.map((post) => (
-            <BlogCard key={post.id} post={post} />
-          ))}
+        <div className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+          {largePost && <BlogCard post={largePost} />}
+          <div className="grid grid-cols-2 gap-6">
+            {smallPosts.map((post) => (
+              <BlogCard key={post.id} post={post} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
