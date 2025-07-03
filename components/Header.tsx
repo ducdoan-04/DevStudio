@@ -10,8 +10,13 @@ const YouTubeIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg fill="currentColor" viewBox="0 0 24 24" {...props}><path d="M10,15L15.19,12L10,9V15M21.56,7.17C21.69,7.64 21.78,8.27 21.84,9.08C21.91,9.87 21.94,10.56 21.94,11.16L22,12C22,12.84 21.94,13.5 21.88,14.08C21.8,14.93 21.71,15.53 21.56,16C21.31,16.88 20.73,17.47 19.88,17.7C19.29,17.85 18.23,18 16.69,18.1C15.15,18.2 13.8,18.25 12.6,18.25L12,18.25C10.2,18.25 8.85,18.2 7.31,18.1C5.77,18 4.71,17.85 4.13,17.7C3.27,17.47 2.69,16.88 2.44,16C2.31,15.53 2.22,14.93 2.16,14.08C2.09,13.29 2.06,12.54 2.06,11.84L2,11.16C2,10.36 2.06,9.68 2.12,9.08C2.2,8.23 2.29,7.63 2.44,7.17C2.69,6.29 3.27,5.71 4.13,5.46C4.71,5.31 5.77,5.2 7.31,5.15C8.85,5.08 10.2,5.04 11.4,5.04L12,5.04C13.8,5.04 15.15,5.08 16.69,5.15C18.23,5.2 19.29,5.31 19.88,5.46C20.73,5.71 21.31,6.29 21.56,7.17Z" /></svg>
 );
 
+interface NavLink {
+    name: string;
+    type: 'page' | 'anchor';
+    target: string;
+}
 
-const Header: React.FC = () => {
+const Header: React.FC<{ setPage: (page: string) => void; currentPage: string }> = ({ setPage, currentPage }) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -22,16 +27,45 @@ const Header: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const leftLinks = ['TRANG CHỦ', 'GIỚI THIỆU', 'ẢNH CƯỚI'];
-  const rightLinks = ['THIỆP CƯỚI', 'BẢNG GIÁ', 'LIÊN HỆ'];
-  const anchorMap: { [key: string]: string } = {
-    'TRANG CHỦ': '#home',
-    'GIỚI THIỆU': '#about',
-    'ẢNH CƯỚI': '#album',
-    'THIỆP CƯỚI': '#invitations',
-    'BẢNG GIÁ': '#contact',
-    'LIÊN HỆ': '#contact',
+  const handleNavClick = (e: React.MouseEvent, link: NavLink) => {
+    e.preventDefault();
+    if (link.type === 'page') {
+      if (currentPage !== link.target) {
+        setPage(link.target);
+        window.scrollTo({ top: 0, behavior: 'auto' });
+      }
+    } else if (link.type === 'anchor') {
+      if (currentPage !== 'home') {
+        setPage('home');
+        setTimeout(() => {
+          document.querySelector(link.target)?.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      } else {
+        document.querySelector(link.target)?.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
   };
+
+  const leftLinks: NavLink[] = [
+    { name: 'TRANG CHỦ', type: 'page', target: 'home' },
+    { name: 'GIỚI THIỆU', type: 'page', target: 'about' },
+    { name: 'ẢNH CƯỚI', type: 'anchor', target: '#album' }
+  ];
+  const rightLinks: NavLink[] = [
+    { name: 'THIỆP CƯỚI', type: 'anchor', target: '#invitations' },
+    { name: 'BẢNG GIÁ', type: 'anchor', target: '#contact' },
+    { name: 'LIÊN HỆ', type: 'anchor', target: '#contact' }
+  ];
+
+  const NavItem: React.FC<{link: NavLink}> = ({ link }) => (
+    <a 
+      href={link.type === 'anchor' ? link.target : '#'} 
+      onClick={(e) => handleNavClick(e, link)}
+      className="text-gray-500 hover:brand-red text-sm font-bold tracking-wider transition-colors cursor-pointer"
+    >
+      {link.name}
+    </a>
+  );
 
   return (
     <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white/95 shadow-md backdrop-blur-sm' : 'bg-white/80'}`}>
@@ -39,27 +73,17 @@ const Header: React.FC = () => {
         <div className="flex items-center justify-between h-24 relative">
           
           <nav className="hidden md:flex items-center space-x-6">
-            {leftLinks.map(link => (
-              <a key={link} href={anchorMap[link]} className="text-gray-500 hover:brand-red text-sm font-bold tracking-wider transition-colors">
-                {link}
-              </a>
-            ))}
+            {leftLinks.map(link => <NavItem key={link.name} link={link} />)}
           </nav>
           
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
-            <a href="#home">
-                <div className="font-script brand-red text-4xl">Wedding</div>
-                <div className="text-sm font-bold tracking-[0.4em] text-gray-700 -mt-2">PLANER</div>
-            </a>
-          </div>
+          <a href="#" onClick={(e) => handleNavClick(e, {name: 'TRANG CHỦ', type: 'page', target: 'home'})} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center cursor-pointer">
+              <div className="font-script brand-red text-4xl">Wedding</div>
+              <div className="text-sm font-bold tracking-[0.4em] text-gray-700 -mt-2">PLANER</div>
+          </a>
 
           <div className="flex items-center">
             <nav className="hidden md:flex items-center space-x-6">
-              {rightLinks.map(link => (
-                <a key={link} href={anchorMap[link]} className="text-gray-500 hover:brand-red text-sm font-bold tracking-wider transition-colors">
-                  {link}
-                </a>
-              ))}
+              {rightLinks.map(link => <NavItem key={link.name} link={link} />)}
             </nav>
             <div className="flex items-center space-x-3 ml-6">
                 <a href="#" className="text-gray-500 hover:brand-red"><FacebookIcon className="h-5 w-5" /></a>
